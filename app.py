@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import messages, login_required, fetch, list_add, gamelist, list_remove, list_update, global_best_rated, my_best_rated, game_data, change_password
 import requests
 from math import ceil
+from credentials import CLIENT_ID, ACCESS_TOKEN
 
 app = Flask(__name__)
 
@@ -15,8 +16,8 @@ Session(app)
 
 db = SQL("sqlite:///games.db")
 
-CLIENT_ID = "2f110wt67l4ofxl9kxo6guwn7qzopi"
-ACCESS_TOKEN = "Bearer f2xgr58udy518f4mxac4lktizykwq1"
+CLIENT_ID = CLIENT_ID
+ACCESS_TOKEN = ACCESS_TOKEN
 IGDB_URL = "https://api.igdb.com/v4/games/"
 
 

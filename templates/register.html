@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Gamelist - Register</title>
+{% endblock %}
+
+{% block body %}
+<main class="mainBodyLogreg">
+    <div class="mainContainerLogreg">
+        <div class="logregTitle">
+            <img src="static/resources/logo.png" width="170">
+        </div>
+        <div class="logregForm">
+        <form action="/register" method="post">
+            <div class="logregInputs"><input class="logregInput" name="username" type="text" placeholder="username"></div>
+            <div class="logregInputs"><input class="logregInput" name="password" type="password" placeholder="password"></div>
+            <div class="logregInputs"><input class="logregInput" name="passwordConfirm" type="password" placeholder="password confirmation"></div>
+            <div class="logregButtons"><button class="logregButton" type="submit">Register</button></div>
+        </form>
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 0.5em;">
+            <a href="/login">Login</a>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
+
+
+

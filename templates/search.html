@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Gamelist - Search</title>
+{% endblock %}
+
+
+{% block body %}
+<main class="mainBodySearch">
+    <div class="mainSearch">
+    {% if games %}
+    <div style="display: flex; justify-content: center; color: white;">
+        {% if query %}
+        Showing results to: {{query}}
+        {% else %}
+        Unknown error
+        {% endif %}
+
+    </div>
+    {% for game in games %}
+    <form action="/game?" method="get">
+        <input hidden name="query" value="{{game.id}}">
+        <button class="clickableResult" type="submit">
+            <div class="searchResultBox">
+                <div class="titleSearch">{{game.name}}</div>
+                <div class="searchResultContent">
+                    {% if game.screenshots %}
+                        <img class="gameImageSearch" src="//images.igdb.com/igdb/image/upload/t_screenshot_huge/{{game.screenshots[0].image_id}}.jpg" height="180" width="300">
+                    {% endif %}
+                    <div>
+                        {% for genre in game.genres %}
+                        <div class="searchResultGenres">{{genre.name}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </button>
+    </form>
+    {% endfor %}
+    {% else %}
+    <div style="color: white">No results</div>
+    {% endif %}
+    </div>
+</main>
+
+{% endblock %}

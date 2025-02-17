@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>GameList - Best Rated</title>
+{% endblock %}
+
+{% block body %}
+<main class="mainBodyGlobal">
+    <div class="mainGlobal">
+        <div class="titleIndex">
+            <div class="titlesGlobal">Global Best Rated</div>
+        </div>
+        {% if globalBestRated %}
+        <div class="tableContainer">
+            <table class="globalChart">
+                <tbody>
+                    <tr class="tableRowGlobal">
+                        <th>Position</th> 
+                        <th>Name</th> 
+                        <th>Rating</th> 
+                        <th>Reviews</th>
+                    </tr>
+                    {% for game in globalBestRated[index:index + 10] %}
+                    <tr class="tableRowGlobal">
+                        <td>
+                            {{game.index + 1}}
+                        </td>
+                        <td>
+                            <div>
+                                <a href="/game?query={{game.id}}"{{game.name}} class="gameAnchor">{{game.name}}</a>
+                            </div>
+                        </td> 
+                        <td>
+                            <div>
+                                {% if game.rating %}{{game.rating | round(2)}}{% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                {{game.rating_count}}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex;">
+            <div style="display: flex; margin: 1em auto;">
+                {% for i in range(0, pages) %}
+                <form action="/global_chart">
+                    <input hidden name="index" value="{{i}}">
+                    <button>{{i + 1}}</button>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

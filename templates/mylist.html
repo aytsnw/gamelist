@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Gamelist - My list</title>
+{% endblock %}
+
+{% block script %}
+<script src="/static/rating_color_script.js"></script>
+{% endblock %}
+
+{% block body %}
+<main class="mainBodyMylist">
+    <div class="mainContainerMylist">
+        <div class="titlesMylist">
+            My games
+        </div>
+        <div class="finishedBox">
+            <div class="statusTitle">Finished</div>
+            <div style="display: flex; height: auto; flex-wrap: wrap; padding: 0 1.2em;">
+                {% if games %}
+                {% for game in games %}
+                {% if game.status == "finished" %}
+                <div class="gameContainerMylist">
+                    <div style="position: relative;">
+                        {% if game.cover %}
+                        <img class="gameThumb" src="//images.igdb.com/igdb/image/upload/t_thumb/{{game.cover.image_id}}.jpg">
+                        {% else %}
+                        {{ game.name }}
+                        {% endif %}
+                        <div class="ratingMylist">
+                            {{game.rating}}
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <form action="/mylist" method="post">
+                        <input hidden name="gameId" value="{{game.id}}">
+                        <input hidden name="action" value="remove">
+                        <button class="removeButton" type="submit"><span class="material-icons"> close</span></button>
+                        </form>
+                        <form action="/game" method="get">
+                            <input hidden name="query" value="{{game.id}}">
+                            <input hidden name="action" value="update">
+                            <button class="updateButton" type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="playingBox">
+            <div class="statusTitle">Playing</div>
+            <div style="display: flex; height: auto; flex-wrap: wrap; padding: 0 1.2em;">
+                {% if games %}
+                {% for game in games %}
+                {% if game.status == "playing" %}
+                <div class="gameContainerMylist">
+                    <div style="position: relative;">
+                        {% if game.cover %}
+                        <img class="gameThumb" src="//images.igdb.com/igdb/image/upload/t_thumb/{{game.cover.image_id}}.jpg">
+                        {% else %}
+                        {{ game.name }}
+                        {% endif %}
+                        <div class="ratingMylist">
+                            {{game.rating}}
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <form action="/mylist" method="post">
+                        <input hidden name="gameId" value="{{game.id}}">
+                        <input hidden name="action" value="remove">
+                        <button class="removeButton" type="submit"><span class="material-icons"> close</span></button>
+                        </form>
+                        <form action="/game" method="get">
+                            <input hidden name="query" value="{{game.id}}">
+                            <input hidden name="action" value="update">
+                            <button class="updateButton" type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="toplayBox">
+            <div class="statusTitle">Wishlist</div>
+            <div style="display: flex; height: auto; flex-wrap: wrap; padding: 0 1.2em;">
+                {% if games %}
+                {% for game in games %}
+                {% if game.status == "toplay" %}
+                <div class="gameContainerMylist">
+                    <div>
+                        {% if game.cover %}
+                        <img class="gameThumb" src="//images.igdb.com/igdb/image/upload/t_thumb/{{game.cover.image_id}}.jpg">
+                        {% else %}
+                        {{ game.name }}
+                        {% endif %}
+                    </div>
+                    <div class="menu">
+                        <form action="/mylist" method="post">
+                        <input hidden name="gameId" value="{{game.id}}">
+                        <input hidden name="action" value="remove">
+                        <button class="removeButton" type="submit"><span class="material-icons"> close</span></button>
+                        </form>
+                        <form action="/game" method="get">
+                            <input hidden name="query" value="{{game.id}}">
+                            <input hidden name="action" value="update">
+                            <button class="updateButton" type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

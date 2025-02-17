@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>GameList - Home</title>
+{% endblock %}
+
+
+{% block body %}
+<main class="mainBodyIndex">
+    <div class="mainContainerIndex">
+        <form action="/mylist">
+            <button class="myBestRatedGamesButton">
+                <div class="contentBoxIndex">
+                    <div class="titlesIndex">
+                        <div>My Best Rated Games</div>
+                    </div>
+                    {% if mybestrated %}
+                    <table>
+                        <tbody class="tableBodyIndex">
+                            {% for game in mybestrated[:5] %}
+                            <tr class="tableRowIndex">
+                                <td class="dataCoverIndex">
+                                    <div style="display: flex; justify-content: center;">
+                                        <img class="tableDataIndex image" src="//images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.image_id}}.jpg" height="150" width="115">
+                                    </div>
+                                    <div style="color: white; display: flex; text-align: center; justify-content: center; margin-top: 0.7em;">
+                                        {{game.name}}
+                                    </div>
+                                </td> 
+                                <td class="dataReviewIndex">
+                                    <div class="rating">
+                                        {% if game.rating %}{{game.rating | round(2)}}{% endif %}
+                                    </div>
+                                    <div class="commentary">
+                                       {% if game.commentary %}"{{game.commentary}}"{% else %}No comments{% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </button>
+        </form>
+        <form class="globalForm" action="/global_chart" method="get">
+            <button class="globalChartButton">
+                <div class="contentBoxIndex">
+                    <div class="titlesIndex">
+                        <div>Global Best Rated</div>
+                    </div>
+                    {% if globalbestrated %}
+                            <table>
+                                <tbody class="tableBodyIndexGlobal">
+                                    {% for game in globalbestrated[:5] %}
+                                    <tr class="tableRowIndex">
+                                        <td class="dataCoverIndex">
+                                            <div style="display: flex; justify-content: left;">
+                                                <img class="tableDataIndex image" src="//images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.image_id}}.jpg" height="150" width="115">
+                                            </div>
+                                            <div style="margin-top: 0.7em; color: white; justify-content: left; text-align: left;">
+                                                {{game.name}}
+                                            </div>
+                                        </td> 
+                                        <td style="display: flex; align-items: center; flex-direction: column;">
+                                            <div class="rating">
+                                                {% if game.rating %}{{game.rating | round(2)}}{% endif %}
+                                            </div>
+                                            <div style=" display: flex; color: white; justify-content: center; text-align: center;">
+                                                {{game.rating_count}}
+                                            </div>
+                                            <div style="color: white;">
+                                                Reviews
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    {% endif %}
+                </div>
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

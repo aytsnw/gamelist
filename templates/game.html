@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Gamelist - {{ game.name }}</title>
+{% endblock %}
+
+{% block script %}
+<script src="/static/rating_color_script.js"></script>
+{% endblock %}
+
+{% block body %}
+<main class="mainBodyGame">
+    <div class="mainContainerGame">
+        {% if game %}
+        <div class="titlesGame">
+            {% if game.name %}
+            {{game.name}}
+            {% endif %}
+        </div>
+        <div class="gameBox">
+            <div style="display: flex; padding: 0 auto; margin-bottom: 1em;">
+                <img style="margin: 0 auto;" src="//images.igdb.com/igdb/image/upload/t_screenshot_huge/{{game.screenshots[0].image_id}}.jpg" height="360" width="600">
+            </div>
+            <div class="gameInfo">
+                <div class="ratingBox">
+                    <div class="gamelistRating">
+                        <div style="font-weight: bold; margin: 0 auto;">Gamelist Rating: </div>
+                        <div class="rating" style="margin: 0.5em auto;">{% if game.rating %}{{game.rating}}{% else %}N/A{% endif %}</div>
+                        <div style="text-align: center;">{% if game.rating_count %}Voters: {{game.rating_count}}{% else %}Not reviewed yet{% endif %}</div>
+                    </div>
+                    <div class="myRating">
+                        <div style="font-weight: bold; margin: 0 auto;">My rating: </div>
+                        <div class="rating" style="margin: 0.5em auto;">{% if game.user_rating %}{{game.user_rating}}{% else %}N/A{% endif %}</div>
+                    </div>
+                </div>
+                
+                <div class="commentaryGame">
+                    <div style="display: flex; margin: 0 auto 0.5em auto; font-weight: bold; font-size: 1.5em;">Description</div>
+                    {% if game.summary %}{{game.summary}}{% endif %}
+                </div>
+                <div style="display: flex;">
+                    <div style="margin: auto 0.5em auto 0;">Genres:</div>
+                    <div class="genres">
+                        {% for genre in game.genres %}
+                        <div class="genreGame">{{genre.name}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    <div>Release date: {% if game.release_dates %}{{game.release_dates[0].human}}{% else %}No release date so far!{% endif %}</div>
+                </div>
+            </div>
+            <div class="reviewBox">
+                <div style="display: flex; margin: 0 auto; font-weight: bold;">
+                {% if game.user_rating %}Update review{% else %}Add a review{% endif %}
+                </div>
+                <form class="reviewForm" action="/game" method="post">
+                    <input hidden name="gameId" value="{{game.id}}">
+                    <div class="rating-status">
+                        <select name="rating">
+                            <option selected disabled="true">Rating</option>
+                            {% for i in range(11) %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="status">
+                            <option selected disabled="true">Status</option>
+                            <option value="finished">Finished</option>
+                            <option value="playing">Currently Playing</option>
+                            <option value="toplay">To play</option>
+                        </select>
+                    </div>
+                    <textarea {% if action %}autofocus="true"{%endif%}class="reviewCommentary" name="commentary" placeholder="Your commentary..."></textarea>
+                    <button class="btn btn-outline-light" type="submit">
+                        {% if game.user_rating %}Update review{% else %}Add to my games{% endif %}
+                    </button>
+                </form>
+            </div>
+            <div style="display: flex; flex-direction: column; background-color:  rgb(21, 42, 83); margin-top: 0.5em; border-radius: 5px; padding: 0.5em 0.5em; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
+                <div class="userReviewsTitle">
+                    My review
+                </div>
+                <div class="userReviewsBox">
+                    {% if game.user_commentary %}
+                    <div style="max-width: 36em;">
+                        <div class="commentary">
+                            "{{game.user_commentary}}"
+                        </div>
+                    </div>
+                    {% else %}
+                    No comments
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Gamelist - Settings</title>
+{% endblock %}
+
+{% block body %}
+<main class="mainBodySettings">
+    <div class="mainContainerSettings">
+        <div>
+            <div style="display: flex; color: white; justify-content: center; font-weight: bold; margin-bottom: 0.5em;">
+                Change password
+            </div>
+            <form action="/settings" method="post" class="changePassForm" style="display: flex; align-items: center;">
+                <input style="height: 2em; margin: 0 0.5em;" type="text" name="oldPassword" placeholder="Current password">
+                <input style="height: 2em; margin: 0 0.5em;" type="text" name="newPassword" placeholder="New password">
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </form>
+        </div>
+        <div style="color: white; display: flex; justify-content: center; margin-top: 2em;">
+                <a href="/logout">Logout</a> 
+        </div>
+    </div>
+
+</main>
+{% endblock %}

@@ -1,6 +1,8 @@
 # Gamelist
 
-#### Video Demo: https://youtu.be/8h5I1SlaXJI?si=wRyMIPVRlGR4Uax_
+![demo](demo/demo_gamelistv0.0.0.gif)
+
+#### Watch full video on Youtube: https://youtu.be/8h5I1SlaXJI?si=wRyMIPVRlGR4Uax_
 
 #### Description:
 
